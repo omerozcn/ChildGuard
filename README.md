@@ -1,7 +1,9 @@
 # ChildGuard – Age-Aware Harmful Content Classifier  
 ### BERT + TF‑IDF Logistic Regression Projesi
 
-Bu proje, çevrim içi metinlerde **çocukları hedef alan zararlı içerikleri tespit etmek** için yaş gruplarına duyarlı (Age‑Aware) bir sınıflandırma modeli geliştirir.  
+**dataseti git pull ile almazsanız düzgün inmeyecektir**
+
+Bu proje, çevrim içi metinlerde **çocukları hedef alan zararlı içerikleri tespit etmek** için yaş gruplarına duyarlı (Age‑Aware) bir sınıflandırma modeli geliştirir. 
 Model iki ana yaklaşımı birleştirir:
 
 - **BERT (Age‑Aware Fine-Tuning / Her yaş grubuna özel model)**
