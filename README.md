@@ -1,157 +1,141 @@
-# 🛡️ ChildGuard AI – Hibrit Zararlı İçerik Sınıflandırıcı
+
+# 🛡️ ChildGuard AI – Hybrid Harmful Content Classifier
 
 ### BERT + TF‑IDF Logistic Regression Hybrid Classifier
 
-ChildGuard AI, çevrim içi metinlerde **çocukları hedef alan zararlı içeriklerin** tespiti için geliştirilmiş **hibrit bir metin sınıflandırma sistemidir**. Proje; **Derin Öğrenme (BERT)** ile **Klasik Makine Öğrenmesi (TF‑IDF + Logistic Regression)** yaklaşımlarını birleştirerek daha dengeli, açıklanabilir ve yüksek doğruluklu sonuçlar üretir.
+ChildGuard AI is a **hybrid text classification system** developed to detect **harmful content targeting children** in online texts. The project combines **Deep Learning (BERT)** with **Classical Machine Learning (TF‑IDF + Logistic Regression)** approaches to produce more balanced, explainable, and high‑accuracy results.
 
-Uygulama, önceden eğitilmiş ve serileştirilmiş modelleri (`.pkl`, `save_pretrained`) yükleyerek **Gradio** tabanlı bir web arayüzü üzerinden **anlık analiz** sunar.
+The application provides **real‑time analysis** through a **Gradio‑based web interface** by loading pre‑trained and serialized models (`.pkl`, `save_pretrained`).
 
 ---
 
-## 🚀 Hibrit Mimari (Yeni Nesil Yaklaşım)
+## 🚀 Hybrid Architecture (Next‑Generation Approach)
 
-Sistem, iki farklı modelin çıktısını **ağırlıklı karar mekanizması** ile birleştirir:
+The system combines the outputs of two different models using a **weighted decision mechanism**:
 
 * **BERT (Transformers)**
-  Metnin bağlamsal (contextual) ve anlamsal yapısını analiz eder.
-  **Ağırlık:** %60
+  Analyzes the contextual and semantic structure of the text.  
+  **Weight:** 60%
 
 * **Logistic Regression (Feature‑Engineered)**
-  TF‑IDF vektörlerine ek olarak metinsel ve demografik öznitelikler ile istatistiksel analiz yapar.
-  **Ağırlık:** %40
+  Performs statistical analysis using TF‑IDF vectors along with textual and demographic features.  
+  **Weight:** 40%
 
-Bu yaklaşım, yalnızca derin öğrenmeye bağımlı kalmadan **genellenebilirlik** ve **kararlılık** sağlar.
-
----
-
-## 📌 Teknik Detaylar
-
-### 1️⃣ Model Serileştirme (Serialization)
-
-* **Joblib / Pickle**
-  Logistic Regression modeli ve TF‑IDF vektörleştirici `.pkl` formatında kaydedilmiştir. Böylece her çalıştırmada yeniden eğitim gerekmez.
-
-* **HuggingFace – save_pretrained**
-  BERT modelleri ve tokenizer’lar yerel dizinden hızlı yükleme için optimize edilmiştir.
+This approach provides **generalizability** and **stability** without relying solely on deep learning.
 
 ---
 
-### 2️⃣ Öznitelik Mühendisliği (Feature Engineering)
+## 📌 Technical Details
 
-Klasik modelin performansını artırmak amacıyla veri madenciliği prensiplerine uygun şekilde aşağıdaki öznitelikler kullanılmıştır:
+### 1️⃣ Model Serialization
 
-* **TF‑IDF Vektörleri**
+* **Joblib / Pickle**  
+  The Logistic Regression model and TF‑IDF vectorizer are saved in `.pkl` format, eliminating the need for retraining on each run.
 
-  * Maksimum 5000 boyut
-  * Metin temelli ağırlıklı özellik çıkarımı
+* **HuggingFace – save_pretrained**  
+  BERT models and tokenizers are optimized for fast loading from local directories.
 
-* **Sayısal Meta Veriler**
+---
 
-  * Metin uzunluğu (`text_len`)
-  * Kelime sayısı (`word_cnt`)
+### 2️⃣ Feature Engineering
+
+To improve the performance of the classical model, the following features were used in accordance with data mining principles:
+
+* **TF‑IDF Vectors**
+  * Maximum dimension: 5000  
+  * Text‑based weighted feature extraction
+
+* **Numerical Metadata**
+  * Text length (`text_len`)  
+  * Word count (`word_cnt`)
 
 * **One‑Hot Encoding**
+  * Target age group information
 
-  * Hedef yaş grubu bilgisi
-
-Bu yapı, özellikle kısa ve belirsiz metinlerde klasik modelin katkısını artırır.
+This structure significantly improves the contribution of the classical model, especially for short and ambiguous texts.
 
 ---
 
-### 3️⃣ Hibrit Karar Mekanizması
+### 3️⃣ Hybrid Decision Mechanism
 
-Her iki modelden elde edilen olasılık skorları aşağıdaki formül ile birleştirilir:
+The probability scores obtained from both models are combined using the following formula:
 
-```text
 Final Score = (BERT_prob × 0.6) + (LR_prob × 0.4)
-```
 
-Bu skor, nihai sınıflandırma kararının temelini oluşturur.
+This score forms the basis of the final classification decision.
 
 ---
 
-## 📁 Proje Dosya Yapısı
+## 📁 Project File Structure
 
-```text
 ├── final_models/
-│   ├── bert_pre-teen/                 # BERT Model (11–13 yaş)
-│   ├── bert_teen/                     # BERT Model (13–17 yaş)
-│   ├── bert_younger/                  # BERT Model (<11 yaş)
-│   ├── logistic_regression_model.pkl  # Eğitilmiş LR modeli
-│   └── tfidf_vectorizer.pkl           # Eğitilmiş TF‑IDF nesnesi
+│   ├── bert_pre-teen/                 # BERT Model (Ages 11–13)
+│   ├── bert_teen/                     # BERT Model (Ages 13–17)
+│   ├── bert_younger/                  # BERT Model (<11 years)
+│   ├── logistic_regression_model.pkl  # Trained LR model
+│   └── tfidf_vectorizer.pkl           # Trained TF‑IDF object
 │
-├── app.py                             # Gradio Web Arayüzü
-├── childguardhybrid.py                # Eğitim ve test kodları
-├── docker-compose.yml                 # Docker servis konfigürasyonu
-├── Dockerfile                         # Docker imaj tanımı
-├── requirements.txt                   # Python bağımlılıkları
-└── README.md                          # Proje dokümantasyonu
-```
+├── app.py                             # Gradio Web Interface
+├── childguardhybrid.py                # Training and testing code
+├── docker-compose.yml                 # Docker service configuration
+├── Dockerfile                         # Docker image definition
+├── requirements.txt                   # Python dependencies
+└── README.md                          # Project documentation
 
 ---
 
-## ⚙️ Kurulum ve Çalıştırma
+## ⚙️ Installation and Execution
 
-### 1️⃣ Modelleri Hazırlama
+### 1️⃣ Preparing the Models
 
-Eğitilmiş `.pkl` dosyalarını ve BERT model klasörlerini aşağıdaki dizine yerleştirin:
+Place the trained `.pkl` files and BERT model directories into the following path:
 
-```text
 final_models/
-```
 
 ---
 
-### 2️⃣ Bağımlılıkları Yükleme
+### 2️⃣ Installing Dependencies
 
-```bash
 pip install -r requirements.txt
-```
 
 ---
 
-### 3️⃣ Uygulamayı Başlatma
+### 3️⃣ Running the Application
 
-```bash
 python app.py
-```
 
-Uygulama çalıştıktan sonra terminalde verilen bağlantı üzerinden arayüze erişebilirsiniz:
+After the application starts, you can access the interface via the link shown in the terminal:
 
-```text
 http://127.0.0.1:7860
-```
 
 ---
 
-## 🐳 Docker ile Çalıştırma (Opsiyonel)
+## 🐳 Running with Docker (Optional)
 
-Proje, **Docker layer caching** desteğiyle optimize edilmiştir.
+The project is optimized with **Docker layer caching** support.
 
-```bash
 docker-compose up -d --build
-```
 
-Bu yöntem, bağımlılıkların tekrar indirilmesini önleyerek hızlı dağıtım sağlar.
-
----
-
-## 🎯 Kullanım Senaryoları
-
-* Sosyal medya içerik denetimi
-* Eğitim platformlarında içerik filtreleme
-* Çocuklara yönelik dijital güvenlik sistemleri
-* Akademik veri madenciliği ve NLP çalışmaları
+This method enables fast deployment by preventing repeated dependency downloads.
 
 ---
 
-## 👨‍💻 Geliştirici
+## 🎯 Use Cases
 
-**Ömer Özcan**
-Afyon Kocatepe Üniversitesi – Bilgisayar Mühendisliği
-
-📌 Bu proje, **Veri Madenciliği dersi final ödevi** kapsamında geliştirilmiştir.
+* Social media content moderation
+* Content filtering in educational platforms
+* Child‑focused digital safety systems
+* Academic data mining and NLP research
 
 ---
 
-> 🛡️ *ChildGuard AI, çocukların dijital dünyada daha güvenli bir ortamda bulunabilmesi için tasarlanmıştır.*
+## 👨‍💻 Developer
+
+**Ömer Özcan**  
+Afyon Kocatepe University – Computer Engineering
+
+📌 This project was developed as part of the **Data Mining course final assignment**.
+
+---
+
+> 🛡️ *ChildGuard AI is designed to help children stay safer in the digital world.*
