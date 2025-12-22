@@ -12,7 +12,6 @@ Eski versiyonlardan farklı olarak sistem artık iki farklı mimariyi eş zamanl
 * **BERT (Transformers):** Metnin anlamsal (contextual) yapısını analiz eder ve %60 ağırlığa sahiptir.
 * **Logistic Regression (Feature Engineered):** TF-IDF vektörlerine ek olarak metin uzunluğu, kelime sayısı ve yaş grubu verilerini harmanlayarak istatistiksel analiz yapar ve %40 ağırlığa sahiptir.
 
-
 ---
 
 ## 📌 Teknik Detaylar ve Veri Madenciliği Referansları
@@ -52,26 +51,25 @@ $$Final Score = (BERT_{prob} \times 0.6) + (LR_{prob} \times 0.4)$$
 
 ---
 
-🚀 Kurulum ve Çalıştırma
-1) Modelleri Hazırlama
-Eğittiğiniz .pkl ve BERT klasörünü final_models dizini altına yerleştirin.
+## 🚀 Kurulum ve Çalıştırma
 
-2) Bağımlılıkları Yükleme
+### 1) Modelleri Hazırlama
+Eğittiğiniz `.pkl` ve BERT klasörünü `final_models` dizini altına yerleştirin.
 
+### 2) Bağımlılıkları Yükleme
+```bash
 pip install -r requirements.txt
-3) Uygulamayı Başlatma
----
 
-$$python app.py$$
-
----
+### 3) Uygulamayı Başlatma
+```bash
+python app.py
 
 Uygulama başladığında terminalde oluşan linke (örn: http://127.0.0.1:7860) tıklayarak arayüze erişebilirsiniz.
 
 🐳 Docker ile Canlıya Alma (Opsiyonel)
 Proje, internet tasarrufu sağlayan Layer Caching teknolojisiyle Dockerize edilmiştir:
-
-$$docker-compose up -d --build$$
+```bash
+docker-compose up -d --build
 
 👨‍💻 Geliştirici
 Ömer Özcan – AKÜ Bilgisayar Mühendisliği Bu proje Veri Madenciliği dersi final ödevi kapsamında hazırlanmıştır.
