@@ -50,6 +50,8 @@ $$Final Score = (BERT_{prob} \times 0.6) + (LR_{prob} \times 0.4)$$
 ├── requirements.txt              # Gerekli Kütüphaneler
 └── README.md                     # Proje Dökümantasyonu
 
+---
+
 🚀 Kurulum ve Çalıştırma
 1) Modelleri Hazırlama
 Eğittiğiniz .pkl ve BERT klasörünü final_models dizini altına yerleştirin.
@@ -58,8 +60,11 @@ Eğittiğiniz .pkl ve BERT klasörünü final_models dizini altına yerleştirin
 
 pip install -r requirements.txt
 3) Uygulamayı Başlatma
+---
 
 $$python app.py$$
+
+---
 
 Uygulama başladığında terminalde oluşan linke (örn: http://127.0.0.1:7860) tıklayarak arayüze erişebilirsiniz.
 
