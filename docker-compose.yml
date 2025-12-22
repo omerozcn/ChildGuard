@@ -1,0 +1,10 @@
+services:
+  childguard-app:
+    build: .
+    container_name: childguard-container
+    ports:
+      - "7860:7860"
+    volumes:
+      # Modelleri dışarıda tutuyoruz (Localhost için optimize)
+      - ./final_models:/app/final_models
+    restart: always
