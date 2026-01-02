@@ -68,19 +68,19 @@ This score forms the basis of the final classification decision.
 
 ## 📁 Project File Structure
 
+.
 ├── final_models/
-│   ├── bert_pre-teen/                 # BERT Model (Ages 11–13)
-│   ├── bert_teen/                     # BERT Model (Ages 13–17)
-│   ├── bert_younger/                  # BERT Model (<11 years)
-│   ├── logistic_regression_model.pkl  # Trained LR model
-│   └── tfidf_vectorizer.pkl           # Trained TF‑IDF object
-│
-├── app.py                             # Gradio Web Interface
-├── childguardhybrid.py                # Training and testing code
-├── docker-compose.yml                 # Docker service configuration
-├── Dockerfile                         # Docker image definition
-├── requirements.txt                   # Python dependencies
-└── README.md                          # Project documentation
+│   ├── bert_pre-teen/
+│   ├── bert_teen/
+│   ├── bert_younger/
+│   ├── logistic_regression_model.pkl
+│   └── tfidf_vectorizer.pkl
+├── app.py
+├── childguardhybrid.py
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+└── README.md
 
 ---
 
