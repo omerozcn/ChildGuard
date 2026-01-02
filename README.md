@@ -68,7 +68,7 @@ This score forms the basis of the final classification decision.
 
 ## 📁 Project File Structure
 
-.
+```text
 ├── final_models/
 │   ├── bert_pre-teen/
 │   ├── bert_teen/
@@ -81,7 +81,7 @@ This score forms the basis of the final classification decision.
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
-
+```
 ---
 
 ## ⚙️ Installation and Execution
